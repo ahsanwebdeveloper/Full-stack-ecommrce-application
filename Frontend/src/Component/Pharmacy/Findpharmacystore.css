@@ -1,0 +1,141 @@
+.find-store {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.find-store h2 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.find-store p {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* --- Search Bar --- */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 250px;
+}
+
+.find-btn {
+  background: #0071dc;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.find-btn:hover {
+  background: #005bb5;
+}
+
+.directory-link {
+  color: #0071dc;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* --- Location Link --- */
+.location-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.location-link a {
+  color: #0071dc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* --- Categories --- */
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.categories button {
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.categories .active {
+  border: 2px solid #0071dc;
+  font-weight: bold;
+}
+
+/* --- Store Card --- */
+.store-card {
+  border: 1px solid #ccc;
+  border-left: 4px solid #0071dc;
+  background: #f9f9f9;
+  padding: 16px;
+  margin: 15px 0;
+  border-radius: 6px;
+}
+
+.store-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.store-card .store-link {
+  color: #0071dc;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+/* --- Map --- */
+.map-container {
+  margin-top: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .find-btn {
+    width: 100%;
+  }
+
+  .categories {
+    flex-direction: column;
+  }
+
+  .map-container iframe {
+    height: 200px;
+  }
+}

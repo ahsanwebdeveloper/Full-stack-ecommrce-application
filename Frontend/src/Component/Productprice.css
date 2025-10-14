@@ -1,0 +1,239 @@
+.price-box {
+  max-width: 400px;
+  margin: 1rem auto;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  color: #1a1a1a;
+}
+
+.price-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.current-price {
+  font-size: 1rem;
+  color: #333;
+}
+
+.current-price span {
+  color: #107c10; /* green */
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.old-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+
+.save {
+  color: #107c10;
+  font-weight: bold;
+  margin-top: 0.2rem;
+}
+
+.online-price {
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  color: #555;
+}
+
+.info-icon {
+  display: inline-block;
+  background: #ccc;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 14px;
+  margin-left: 0.2rem;
+}
+
+.monthly {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.onepay {
+  background: #000;
+  color: #fff;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  margin: 0 0.3rem;
+}
+
+.learn {
+  margin-left: 0.3rem;
+  color: #0071dc;
+  font-size: 0.8rem;
+}
+
+.returns {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #555;
+}
+
+.add-to-cart {
+  margin-top: 0.8rem;
+  width: 100%;
+  padding: 0.8rem;
+  background: #0071dc;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-to-cart:hover {
+  background: #005fa3;
+}
+
+.plan-box {
+  margin-top: 1rem;
+  background: #f5f8ff;
+  border-radius: 6px;
+  padding: 0.8rem;
+}
+
+.plan-header {
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.shield {
+  font-size: 1.2rem;
+}
+
+.whats {
+  color: #0071dc;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+.plan-sub {
+  font-size: 0.75rem;
+  color: #555;
+  margin: 0.2rem 0 0.5rem;
+}
+
+.plan-option {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.plan-option input {
+  margin-right: 0.3rem;
+}
+
+.shipping-box {
+  margin-top: 1.2rem;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.shipping-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.shipping-options {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.shipping-option {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  background: #f9f9f9;
+}
+
+.shipping-option .icon {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.shipping-option.selected {
+  border-color: #0071dc;
+  background: #e5f1ff;
+}
+
+.shipping-option.disabled {
+  color: #aaa;
+  background: #f1f1f1;
+}
+
+.location {
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.location a {
+  color: #0071dc;
+  font-size: 0.85rem;
+  margin-left: 0.3rem;
+}
+
+.arrival-date,
+.shipping-fee {
+  margin: 0.2rem 0;
+}
+
+.seller {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.badge {
+  background: #e5f1ff;
+  color: #0071dc;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  margin-left: 0.3rem;
+}
+
+.rating {
+  color: #f0c000;
+  font-size: 0.8rem;
+}
+
+
+
+/* Responsive */
+@media (max-width: 480px) {
+  .price-box {
+    padding: 0.8rem;
+  }
+
+  .current-price span {
+    font-size: 1.3rem;
+  }
+
+  .add-to-cart {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+}

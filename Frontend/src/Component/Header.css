@@ -1,0 +1,200 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  width: 100%;
+  background: #fff;
+  font-family: Arial, sans-serif;
+  padding: 20px 0;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+}
+
+
+.left-header,
+.center-header,
+.right-header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.left-header-content{
+   background: #be3c3c;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+  gap: 16px; 
+}
+.left-header-content1{
+    background: #f7f7f7;
+    padding: 16px;
+    border-radius: 8px; 
+    gap: 16px;
+}
+.right-header-content2,
+.left-header-content2 {
+  position: relative;
+  width: 100%;
+  max-width: 400px;        
+  height: 300px;           
+  border-radius: 1rem;    
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+.right-header-content-item6 img,
+.left-header-content-item6 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.left-header-content-item5 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 4;
+  color: #fff;
+}
+.right-header-content-item5 h1,
+.left-header-content-item5 h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.left-header-content-item5 a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  background: #0071dc;     
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.left-header-content-item5 a:hover {
+  background: #005fb3;
+}
+
+.center-header-content,
+.center-header1-content,
+.right-header-content,
+.right-header-content1 {
+  background: #f7f7f7;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.left-header-content-item1,
+.right-header-content-item1,
+.right-header-content-item3,
+.center-header1-content-item1,
+.center-header1-content-item2 {
+  flex: 1;
+}
+
+.left-header-content-item2 img,
+.right-header-content-item2 img,
+.right-header-content-item4 img,
+.center-header1-content-item1 img,
+.center-header1-content-item2 img,
+.center-header-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+
+h1, h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+a {
+  color: #0071dc;           
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+.center-header {
+  flex: 1.2; 
+}
+
+
+.center-header-content {
+  background: #eaf6ff;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.center-header1 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.center-header1-content {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.center-header1-content > div {
+  flex: 1;
+  background: #f7f7f7;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+.center-header-content {
+  width: 450px;   /* fix width */
+  height: 200px;  /* fix height */
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: #eaf6ff; /* fallback background */
+}
+
+.slider-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* image/video zoom ho kar box fill karega */
+  border-radius: 8px;
+}
+
+
+
+/* === Responsive === */
+
+@media (max-width: 992px) {
+  .header-content {
+    flex-direction: column;
+  }
+}

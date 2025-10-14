@@ -1,0 +1,124 @@
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 40px;
+}
+
+.product-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* hide scrollbar for Firefox */
+}
+
+.product-slider::-webkit-scrollbar {
+  display: none; /* hide scrollbar for Chrome */
+}
+
+.product-card {
+  flex: 0 0 auto;
+  width: 200px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.img-wrap {
+  position: relative;
+}
+
+.img-wrap img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.heart {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: #fff;
+  border-radius: 50%;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.price-line {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.price-line .now {
+  color: green;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.price-line .old {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.unit {
+  font-size: 12px;
+  color: gray;
+  margin: 4px 0;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 6px 0;
+}
+
+.add-btn {
+  width: 100%;
+  background: #f0f0f0;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background: #ddd;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.scroll-btn.left {
+  left: 10px;
+}
+
+.scroll-btn.right {
+  right: 10px;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    width: 150px;
+  }
+}

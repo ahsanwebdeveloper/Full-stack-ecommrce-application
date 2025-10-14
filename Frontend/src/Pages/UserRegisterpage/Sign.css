@@ -1,0 +1,70 @@
+/* Wrapper to center content */
+.signin-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.well {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.input1,
+.input2 {
+  width: 100%;
+  border: 1px solid rgb(125, 109, 109);
+  border-radius: 7px;
+  height: 45px;
+  margin-bottom: 10px;
+}
+
+.black {
+  background: #0071dc;
+  color: white;
+  width: 100%;
+  height: 50px;
+  border-radius: 30px;
+}
+
+.black:hover {
+  background: blue;
+}
+
+/* Error styles */
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.input-error {
+  border-color: red;
+}
+
+/* Password wrapper with eye icon */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: gray;
+  font-size: 1rem;
+}

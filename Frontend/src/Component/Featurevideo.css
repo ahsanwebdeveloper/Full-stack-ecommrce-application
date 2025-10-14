@@ -1,0 +1,171 @@
+
+.featured-container {
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.featured-container h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.video-wrapper {
+  position: relative;
+}
+
+.video-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 40px;
+  scrollbar-width: none;
+}
+
+.video-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.video-card {
+  min-width: 200px;
+  max-width: 220px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+}
+
+.video-thumb {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 0.75rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.video-info {
+  padding: 10px;
+}
+
+.price {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+/* Scroll Buttons */
+.scroll-btn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 5;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
+
+/* Video Modal */
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-video {
+  max-width: 90%;
+  max-height: 70vh;
+  border-radius: 12px;
+  background: black;
+}
+
+.modal-info {
+  margin-top: 12px;
+  color: white;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Navigation inside modal */
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.7);
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.modal-nav.left {
+  left: 20px;
+}
+
+.modal-nav.right {
+  right: 20px;
+}

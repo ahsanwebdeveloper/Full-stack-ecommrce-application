@@ -1,0 +1,52 @@
+/* Wrapper to center content */
+.signin-wrapper {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  min-height: 100vh;       /* full screen height */
+  background: #f8f9fa;     /* light background (optional) */
+}
+
+.well {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* keeps it responsive */
+}
+
+.login {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.input1,
+.input2 {
+  width: 100%;
+  border: 1px solid rgb(125, 109, 109);
+  border-radius: 7px;
+  height: 45px;
+}
+
+.black {
+  background: #0071dc;
+  color: white;
+  width: 100%;
+  height: 50px;
+  border-radius: 30px;
+}
+
+.black:hover {
+  background: blue;
+}
+
+/* Make text smaller on small screens */
+@media (max-width: 576px) {
+  .well {
+    padding: 1.5rem;
+  }
+  .login {
+    font-size: 1.4rem;
+  }
+}

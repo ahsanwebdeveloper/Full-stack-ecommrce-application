@@ -1,0 +1,36 @@
+.pharmacy-page {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Left menu (sidebar) */
+.menu-section {
+  flex: 1;
+  max-width: 300px;
+}
+
+/* Right banner */
+.banner-section {
+  flex: 2;
+  min-width: 0;
+}
+
+/* ✅ Responsive behavior */
+@media (max-width: 992px) {
+  .pharmacy-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu-section {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .banner-section {
+    width: 100%;
+  }
+}

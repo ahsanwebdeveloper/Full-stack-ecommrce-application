@@ -1,0 +1,90 @@
+.mtm-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
+
+/* --- Header --- */
+.mtm-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.mtm-text {
+  flex: 1;
+}
+
+.mtm-text h2 {
+  color: #0071dc;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.mtm-img {
+  flex: 1;
+  min-width: 280px;
+}
+
+.mtm-img img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* --- FAQ Section --- */
+.faq-section {
+  margin: 20px 0;
+}
+
+.faq-section h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.faq-item {
+  border-top: 1px solid #ddd;
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.faq-answer {
+  margin-top: 8px;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* --- Hours --- */
+.hours, .contact {
+  margin: 20px 0;
+}
+
+.hours h3, .contact h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .mtm-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mtm-text h2 {
+    font-size: 1.5rem;
+  }
+
+  .faq-question {
+    font-size: 1rem;
+  }
+}

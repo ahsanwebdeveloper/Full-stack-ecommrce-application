@@ -1,0 +1,142 @@
+
+.shop-slider {
+  width: 100%;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.shop-slider-title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Track (scrollable row) */
+.shop-slider-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.shop-slider-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.shop-slider-track::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* Card */
+.shop-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.shop-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image */
+.shop-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.shop-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shop-heart {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Price */
+.shop-price {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shop-price-now {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e63946;
+}
+
+.shop-price-old {
+  font-size: 0.9rem;
+  color: #777;
+  text-decoration: line-through;
+}
+
+/* Unit + Name */
+.shop-unit {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 5px 0;
+}
+
+.shop-name {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 6px 0 12px;
+  flex-grow: 1;
+}
+
+/* Button */
+.shop-btn {
+  background: #1d4ed8;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.shop-btn:hover {
+  background: #2563eb;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .shop-slider-track {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .shop-slider-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-slider-track {
+    grid-template-columns: 1fr 1fr;
+  }
+}
