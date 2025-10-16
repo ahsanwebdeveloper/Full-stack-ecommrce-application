@@ -1,6 +1,7 @@
 import Product from "../models/Product.js";
 import cloudinary from "../config/cloudinary.js";
 
+
 //  Create Product
 export const createProduct = async (req, res) => {
   try {
@@ -111,6 +112,49 @@ export const updateProduct = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+// Get Products by Category
+//  Get Products by Category
+export const getProductsByCategory = async (req, res) => {
+  try {
+    const category = req.params.category.toLowerCase();
+
+    const products = await Product.find({
+      category: { $regex: new RegExp(`^${category}$`, "i") }, // case-insensitive
+    });
+
+    if (!products.length) {
+      return res.status(404).json({ message: "No products found for this category" });
+    }
+
+    res.status(200).json({
+      success: true,
+      count: products.length,
+      products,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error fetching products by category",
+      error: error.message,
+    });
+  }
+};
+//  Get Product By ID
+export const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product)
+      return res.status(404).json({ message: "Product not found" });
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching product",
+      error: error.message,
+    });
+  }
+};
+
 
 // Delete Product
 export const deleteProduct = async (req, res) => {
