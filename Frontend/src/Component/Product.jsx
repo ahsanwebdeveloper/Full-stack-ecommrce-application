@@ -113,7 +113,16 @@ const products = [
               className="card"
               onClick={() => handleProductClick(item)}
             >
-              <img src={item.img} alt={item.title} />
+             <img
+  src={
+    item.img ||
+    (item.img && item.img.length > 0 ? item.img[0].url : null)
+  }
+  alt={item.name || "Product"}
+  onError={(e) => {
+    e.target.src = "https://via.placeholder.com/300x300?text=No+Image";
+  }}
+/>
               <div className="info">
                 <p className="title-text">{item.title}</p>
                 <p className="price">{item.price}</p>

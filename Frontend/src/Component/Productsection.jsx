@@ -23,6 +23,7 @@ const ProductSection = ({ products: categoryProducts }) => {
         const res = await axios.get(
           "http://localhost:5000/api/products/category/tech"
         );
+        console.log("Fetched tech products:", res);
         setProducts(res.data.products || []);
       } catch (error) {
         console.error(" Error fetching tech products:", error);
@@ -57,8 +58,8 @@ const ProductSection = ({ products: categoryProducts }) => {
         colors: ["Black", "Silver"],
         seller: "Official LHRIVER Store",
         details: [
-          "🔥 Double the Firepower – 16,000 BTU total output",
-          "🔥 309 sq. in. of Grilling Freedom in a Compact Body",
+          " Double the Firepower – 16,000 BTU total output",
+          " 309 sq. in. of Grilling Freedom in a Compact Body",
         ],
         specs: {
           surfaceWidth: "19.4 in",
@@ -103,12 +104,15 @@ const ProductSection = ({ products: categoryProducts }) => {
             <div className="product-card" key={p._id || p.id}>
               <div className="img-wrap" onClick={() => handleProductClick(p)}>
                 <img
-                  src={
-                    p.image ||
-                    (p.images && p.images.length > 0 ? p.images[0].url : "")
-                  }
-                  alt={p.name}
-                />
+  src={
+    p.image ||
+    (p.images && p.images.length > 0 ? p.images[0].url : null)
+  }
+  alt={p.name || "Product"}
+  onError={(e) => {
+    e.target.src = "https://via.placeholder.com/300x300?text=No+Image";
+  }}
+/>
                 <button className="heart">♡</button>
               </div>
               <div className="price-line">

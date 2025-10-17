@@ -15,11 +15,7 @@ function Home() {
         <Navbar />
         <Header />
         <Allproduct />
-        <div>
-      <ProductSection category="tech" />
-      <ProductSection category="fashion" />
-      <ProductSection category="grocery" />
-    </div>
+      <ProductSection  />
         <Product />
         <Clothe />
         <ShopProduct />

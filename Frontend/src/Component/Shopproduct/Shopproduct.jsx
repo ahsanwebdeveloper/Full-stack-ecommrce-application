@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import React, { useRef,useEffect,useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { setSelectedProduct } from "../../features/cart/productSlice"; 
 import "./Shopproduct.css";
 import { addToCart } from "../../features/cart/cartSlice";
+import {getAllProducts} from "../../api/Productapi";
+import products from "../../Data/productsdata";
 
 const shopproduct = [
   {
@@ -58,10 +58,25 @@ const shopproduct = [
   },
 ];
 
-const ShopProduct = ({ products = shopproduct, title }) => {
+const ShopProduct = ({ products, title }) => {
   const sliderRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //state of fatch product
+  const [productList, setProductList] = useState([]);
+  //fatch product data from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getAllProducts();
+        setProductList(response.products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -70,20 +85,21 @@ const ShopProduct = ({ products = shopproduct, title }) => {
   const handleProductClick = (p) => {
     dispatch(
       setSelectedProduct({
-        id: p.id,
+       id: p._id || p.id,
         name: p.name,
-        brand: p.brand || "LHRIVER",
-        price: parseFloat(p.priceNow.replace("$", "")),
-        oldPrice: p.priceOld ? parseFloat(p.priceOld.replace("$", "")) : null,
-        image: p.image,
+        brand: "LHRIVER",
+        price: p.price,
+        oldPrice: p.oldprice || null,
+        image:
+          p.image || (p.images && p.images.length > 0 ? p.images[0].url : ""),
         quantity: 1,
-        colors: p.colors || ["Black", "Silver"],
-        seller: p.seller || "Official LHRIVER Store",
-        details: p.details || [
-          "🔥 Double the Firepower – 16,000 BTU total output",
-          "🔥 309 sq. in. of Grilling Freedom in a Compact Body",
+        colors: ["Black", "Silver"],
+        seller: "Official LHRIVER Store",
+        details: [
+          " Double the Firepower – 16,000 BTU total output",
+          " 309 sq. in. of Grilling Freedom in a Compact Body",
         ],
-        specs: p.specs || {
+        specs: {
           surfaceWidth: "19.4 in",
           cookingArea: "310 sq in",
           burners: "2",
@@ -101,16 +117,25 @@ const ShopProduct = ({ products = shopproduct, title }) => {
       {title && <h2 className="shop-slider-title">{title}</h2>}
       
       <div className="shop-slider-track" ref={sliderRef}>
-        {products.map((p) => (
+        {productList.map((p) => (
           <div className="shop-card" key={p.id}>
             <div className="shop-img" onClick={() => handleProductClick(p)}>
-              <img src={p.image} alt={p.name} />
+              <img
+              src={
+                  p.image ||
+                  (p.images && p.images.length > 0 ? p.images[0].url : null)
+                                                     }
+                      alt={p.name || "Product"}
+                        onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/300x300?text=No+Image";
+  }}
+/>
               <button className="shop-heart">♡</button>
             </div>
 
             <div className="shop-price">
-              <span className="shop-price-now">{p.priceNow}</span>
-              {p.priceOld && <span className="shop-price-old">{p.priceOld}</span>}
+              <span className="shop-price-now">Now ${p.price}</span>
+                {p.oldprice && <span className="shop-price-old">${p.oldprice}</span>}
             </div>
 
             {p.unit && <div className="shop-unit">{p.unit}</div>}

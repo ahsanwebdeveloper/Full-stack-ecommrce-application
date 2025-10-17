@@ -119,7 +119,16 @@ const ProductSlider = ({ products =defaultProducts, title }) => {
         {products.map((p) => (
           <div className="product-card" key={p.id}>
             <div className="img-wrap" onClick={() => handleProductClick(p)}>
-              <img src={p.image} alt={p.name} />
+              <img
+  src={
+    p.image ||
+    (p.image && p.image.length > 0 ? p.image[0].url : null)
+  }
+  alt={p.name || "Product"}
+  onError={(e) => {
+    e.target.src = "https://via.placeholder.com/300x300?text=No+Image";
+  }}
+/>
               <button className="heart">♡</button>
             </div>
             <div className="price-line">

@@ -1,63 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import products from "../Data/productsdata";
-import ProductSlider from "../Component/Clothe";
 import Navbar from "../Component/Navbar";
 import Footer from "../Component/Footer";
-import ProductSection from "../Component/Productsection";
-import Categoryproduct from "../Component/Categoryproduct/Categoryproduct";
 import Banner from "../Component/Banner/Banner";
-import { useSelector } from "react-redux";
+import Categoryproduct from "../Component/Categoryproduct/Categoryproduct";
+import ProductSection from "../Component/Productsection";
 import ShopProduct from "../Component/Shopproduct/Shopproduct";
+import ProductSlider from "../Component/Clothe";
+import { useSelector } from "react-redux";
 
 function CategoryPage() {
-  const { category } = useParams(); // URL se category milegi
-  
-  // Category ka product list nikal lo
-  const categoryProducts = products[category] || [];
+  const { category } = useParams();
+  const [categoryProducts, setCategoryProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Agar koi product hi nahi mila
-  if (!categoryProducts.length) {
-    return (
-      <div style={{ padding: "20px" }}>
-        <h1>No products found for "{category}"</h1>
-      </div>
-    );
-  }
   const searchText = useSelector((state) => state.search.searchText);
 
-  // Apply search filter
-  const filteredProducts = categoryProducts.filter((p) =>
-    p.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  useEffect(() => {
+    const getCategoryProducts = async () => {
+      try {
+        setLoading(true);
+        //  API call kar rahe hain
+        const res = await products[category]();
+        console.log("Category Data:", res);
 
-  if (!filteredProducts.length) {
+        //  Correct extraction of products array
+        const data = res.products || [];
+        setCategoryProducts(data);
+      } catch (error) {
+        console.error("Error fetching category products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getCategoryProducts();
+  }, [category]);
+
+  if (loading) {
     return (
-      <div style={{ padding: "20px" }}>
+      <>
         <Navbar />
-        <h1>No products found for "{searchText || category}"</h1>
+        <div style={{ padding: "20px" }}>
+          <h2>Loading {category} products...</h2>
+        </div>
         <Footer />
-      </div>
+      </>
     );
   }
 
+  if (!categoryProducts.length) {
+    return (
+      <>
+        <Navbar />
+        <div style={{ padding: "20px" }}>
+          <h1>No products found for "{category}"</h1>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  const filteredProducts = categoryProducts.filter((p) =>
+    p.name?.toLowerCase().includes(searchText?.toLowerCase())
+  );
 
   return (
     <>
-    <Navbar />
-    <div style={{ padding: "20px" }}>
-      <h1 style={{ marginBottom: "20px" }}>
-        {category.charAt(0).toUpperCase() + category.slice(1)} Products
-      </h1>
-      
-      {/* Slider component ko products bhejo */}
-      <Banner products={products} title={category} />
-      <Categoryproduct products={categoryProducts} title={category} />
-      <ProductSlider products={categoryProducts} title={category} />
-      <ProductSection products={categoryProducts} title={category}/>
-      <ShopProduct products={categoryProducts} title={category} />
-    </div>
-    <Footer />
+      <Navbar />
+      <div style={{ padding: "20px" }}>
+        <h1 style={{ marginBottom: "20px" }}>
+          {category.charAt(0).toUpperCase() + category.slice(1)} Products
+        </h1>
+
+        <Banner products={filteredProducts} title={category} />
+        <Categoryproduct products={filteredProducts} title={category} />
+        <ProductSlider products={filteredProducts} title={category} />
+        <ProductSection products={filteredProducts} title={category} />
+        <ShopProduct products={filteredProducts} title={category} />
+      </div>
+      <Footer />
     </>
   );
 }
