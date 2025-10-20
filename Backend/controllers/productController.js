@@ -38,6 +38,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
+
 //  Get All Products (with filter, search, pagination)
 export const getProducts = async (req, res) => {
   try {
@@ -117,7 +118,8 @@ export const updateProduct = async (req, res) => {
 export const getProductsByCategory = async (req, res) => {
   try {
     const category = req.params.category.toLowerCase();
-
+    console.log(category);
+    
     const products = await Product.find({
       category: { $regex: new RegExp(`^${category}$`, "i") }, // case-insensitive
     });
@@ -171,4 +173,8 @@ export const deleteProduct = async (req, res) => {
     console.error("Error deleting product:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
+  //category wise product fetch
+  //  Get all unique categories
+
+
 };

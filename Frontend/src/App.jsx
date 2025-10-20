@@ -10,6 +10,7 @@ import Medicationtherapypage from './Pages/Medicationtherapypage'
 import CategoryPage from './Pages/CategoryPage'
 import Signin from './Pages/UserRegisterpage/Signin'
 import Login from './Pages/UserRegisterpage/Login'
+import Invoice from './Component/Invoice/Invoice'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,6 +28,7 @@ function App() {
       <Route path="/category/:category" element={<CategoryPage />} />
       <Route path="/signin" element={<Signin/>}/>
        <Route path='login' element={<Login/>}/>
+       <Route path='Invoice' element={<Invoice/>}/>
     </Routes>
     </>
   )

@@ -2,7 +2,7 @@ import React from "react";
 import "./AddressDrawer.css";
 
 function AddressDrawer({ isOpen, onClose }) {
-  if (!isOpen) return null; // agar open nahi hai to kuch return hi mat karo
+  if (!isOpen) return null; 
 
   return (
     <div className="drawer-overlay">

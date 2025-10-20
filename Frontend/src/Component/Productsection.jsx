@@ -7,6 +7,7 @@ import { addToCart } from "../features/cart/cartSlice";
 import { setSelectedProduct } from "../features/cart/productSlice";
 import "./Productsection.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ProductSection = ({ products: categoryProducts }) => {
   const dispatch = useDispatch();
@@ -45,33 +46,34 @@ const ProductSection = ({ products: categoryProducts }) => {
 
   // Handle product click
   const handleProductClick = (p) => {
-    dispatch(
-      setSelectedProduct({
-        id: p._id || p.id,
-        name: p.name,
-        brand: "LHRIVER",
-        price: p.price,
-        oldPrice: p.oldprice || null,
-        image:
-          p.image || (p.images && p.images.length > 0 ? p.images[0].url : ""),
-        quantity: 1,
-        colors: ["Black", "Silver"],
-        seller: "Official LHRIVER Store",
-        details: [
-          " Double the Firepower – 16,000 BTU total output",
-          " 309 sq. in. of Grilling Freedom in a Compact Body",
-        ],
-        specs: {
-          surfaceWidth: "19.4 in",
-          cookingArea: "310 sq in",
-          burners: "2",
-          fuelType: "Propane",
-          btu: "16,000",
-        },
-      })
-    );
-    navigate("/checkout");
-  };
+  dispatch(
+    setSelectedProduct({
+      id: p._id || p.id,
+      name: p.name,
+      brand: "LHRIVER",
+      price: p.price,
+      oldPrice: p.oldprice || null,
+      image:
+        p.image || (p.images && p.images.length > 0 ? p.images[0].url : ""),
+      images: p.images || [], //  this is the key line
+      quantity: 1,
+      colors: ["Black", "Silver"],
+      seller: "Official LHRIVER Store",
+      details: [
+        " Double the Firepower – 16,000 BTU total output",
+        " 309 sq. in. of Grilling Freedom in a Compact Body",
+      ],
+      specs: {
+        surfaceWidth: "19.4 in",
+        cookingArea: "310 sq in",
+        burners: "2",
+        fuelType: "Propane",
+        btu: "16,000",
+      },
+    })
+  );
+  navigate("/checkout");
+};
 
   // Scroll functions
   const scrollLeft = () => {
@@ -88,9 +90,7 @@ const ProductSection = ({ products: categoryProducts }) => {
           <h2>Sauces, proteins & more</h2>
           <p>Find your favorite add-ins.</p>
         </div>
-        <a href="#" className="view-all">
-          View all
-        </a>
+        <Link to="/category/tech" className="view-all">View all</Link>
       </div>
 
       {/* Product Slider */}

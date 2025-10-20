@@ -255,7 +255,7 @@ function Navbar() {
         </div>
 
         {/* Quick Links */}
-        <Link to="/category/fast">
+        <Link to="/category/tech">
           <button className="menu-btn">Get it Fast</button>
         </Link>
 
