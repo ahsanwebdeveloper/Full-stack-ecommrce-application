@@ -32,7 +32,7 @@ export default function Invoice() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🧾 Submit order to backend
+  //  Submit order to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -40,7 +40,7 @@ export default function Invoice() {
 
     const userId = localStorage.getItem("userId") || "671621af14d8b9e43ac67890"; // Dummy fallback
 
-    // 🧾 Full user info snapshot
+    //  Full user info snapshot
     const userInfo = {
       name: formData.fullName,
       phone: formData.phone,
@@ -51,7 +51,7 @@ export default function Invoice() {
       deliveryType: formData.deliveryLabel,
     };
 
-    // 🛒 Product snapshot (for invoice)
+    //  Product snapshot (for invoice)
     const products = items.map((item) => ({
       productId: item._id || item.id,
       name: item.name,
@@ -72,7 +72,7 @@ export default function Invoice() {
       const res = await axios.post("http://localhost:5000/api/order/create", orderData);
 
       if (res.data.success) {
-        setMessage("✅ Order placed successfully!");
+        setMessage(" Order placed successfully!");
         dispatch(clearCart());
         localStorage.removeItem("cart");
         setFormData({
@@ -85,11 +85,11 @@ export default function Invoice() {
           deliveryLabel: "home",
         });
       } else {
-        setMessage("❌ Failed to place order. Try again.");
+        setMessage(" Failed to place order. Try again.");
       }
     } catch (error) {
       console.error("Order Error:", error);
-      setMessage("❌ Failed to place order. Try again.");
+      setMessage(" Failed to place order. Try again.");
     } finally {
       setLoading(false);
     }
