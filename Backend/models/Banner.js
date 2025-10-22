@@ -8,17 +8,15 @@ const bannerSchema = new mongoose.Schema(
     },
     link: {
       type: String,
-      required: false,
+      required:false
     },
-    position: {
+    category: {
       type: String,
-      enum: ["top", "bottom", "sidebar"],
-      default: "top",
+      required: true,
     },
   },
   { timestamps: true }
 );
 
 const Banner = mongoose.model("Banner", bannerSchema);
-
 export default Banner;
