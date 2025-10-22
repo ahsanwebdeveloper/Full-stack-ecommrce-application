@@ -11,9 +11,14 @@ import CategoryPage from './Pages/CategoryPage'
 import Signin from './Pages/UserRegisterpage/Signin'
 import Login from './Pages/UserRegisterpage/Login'
 import Invoice from './Component/Invoice/Invoice'
+import Admindesh from './Pages/Admindesh'
+import BannerManager from './Component/Admin/BannerManager'
+import Dashboard from './Component/Admin/Dashboard'
+import CategoryManager from './Component/Admin/CategoryManager'
+import ProductManager from './Component/Admin/ProductManger'
+import OrderManager from './Component/Admin/OrderManager'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -29,6 +34,12 @@ function App() {
       <Route path="/signin" element={<Signin/>}/>
        <Route path='login' element={<Login/>}/>
        <Route path='Invoice' element={<Invoice/>}/>
+       <Route path='admin' element={<Admindesh/>}/>
+       <Route path="/dashboard" element={<Dashboard />} />
+                   <Route path="/banners" element={<BannerManager />} />
+                   <Route path="/categories" element={<CategoryManager />} />
+                   <Route path="/products" element={<ProductManager />} />
+                   <Route path="/orders" element={<OrderManager />} />
     </Routes>
     </>
   )

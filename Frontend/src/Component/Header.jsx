@@ -14,7 +14,7 @@ function Header() {
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/api/banners");
+        const { data } = await axios.get("http://localhost:5000/api/banners/banner");
         const all = data.data;
 
         //  Group images by category
