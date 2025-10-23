@@ -7,7 +7,7 @@ import {
   decreaseQty,
   addToCart,
 } from "../features/cart/cartSlice";
-import { createOrder } from "../features/order/orderSlice"; // ✅
+import { createOrder } from "../features/order/orderSlice"; 
 import "./Cart.css";
 import { useNavigate } from "react-router-dom";
 
@@ -46,13 +46,13 @@ const Cart = () => {
       date: new Date().toLocaleString(),
     };
 
-    // ✅ Save to Redux
+    //  Save to Redux
     dispatch(createOrder(orderData));
 
-    // ✅ Save to localStorage
+    //  Save to localStorage
     localStorage.setItem("latestOrder", JSON.stringify(orderData));
 
-    // ✅ Navigate to invoice
+    //  Navigate to invoice
     navigate("/invoice");
   };
 

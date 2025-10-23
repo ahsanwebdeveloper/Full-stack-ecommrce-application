@@ -2,86 +2,115 @@
 import React, { useRef, useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { addToCart } from "../features/cart/cartSlice";
 import { setSelectedProduct } from "../features/cart/productSlice";
-import "./Productsection.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import "./Productsection.css";
 
 const ProductSection = ({ products: categoryProducts }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const sliderRef = useRef(null);
-
-  // State for fetched products
   const [products, setProducts] = useState([]);
 
-  // Fetch tech category products
+  // Fetch products by category (tech)
   useEffect(() => {
-    const fetchTechProducts = async () => {
+    const fetchProducts = async () => {
       try {
         const res = await axios.get(
           "http://localhost:5000/api/products/category/tech"
         );
-        console.log("Fetched tech products:", res);
+        console.log("Fetched tech products:", res.data);
         setProducts(res.data.products || []);
       } catch (error) {
-        console.error(" Error fetching tech products:", error);
+        console.error("Error fetching tech products:", error);
       }
     };
-    fetchTechProducts();
+    fetchProducts();
   }, []);
 
-  // Use products from categoryPage if provided, else API data
   const data =
     categoryProducts && categoryProducts.length > 0
       ? categoryProducts
       : products;
 
-  // Add to cart
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-  };
+  // 🛒 Add to cart
+  const handleAddToCart = (p) => {
+    const mainImage =
+      p.image ||
+      (p.images?.length > 0
+        ? p.images[0].url || p.images[0]
+        : "https://via.placeholder.com/300x300?text=No+Image");
 
-  // Handle product click
-  const handleProductClick = (p) => {
-  dispatch(
-    setSelectedProduct({
+    const productData = {
       id: p._id || p.id,
       name: p.name,
-      brand: "LHRIVER",
       price: p.price,
-      oldPrice: p.oldprice || null,
-      image:
-        p.image || (p.images && p.images.length > 0 ? p.images[0].url : ""),
-      images: p.images || [], //  this is the key line
+      image: mainImage.startsWith("http")
+        ? mainImage
+        : `http://localhost:5000/${mainImage}`,
       quantity: 1,
-      colors: ["Black", "Silver"],
-      seller: "Official LHRIVER Store",
-      details: [
-        " Double the Firepower – 16,000 BTU total output",
-        " 309 sq. in. of Grilling Freedom in a Compact Body",
-      ],
-      specs: {
-        surfaceWidth: "19.4 in",
-        cookingArea: "310 sq in",
-        burners: "2",
-        fuelType: "Propane",
-        btu: "16,000",
-      },
-    })
-  );
-  navigate("/checkout");
-};
+    };
 
-  // Scroll functions
-  const scrollLeft = () => {
+    dispatch(addToCart(productData));
+  };
+
+  // 🧾 Product click → full detail view
+  const handleProductClick = (p) => {
+    const allImages =
+      p.images && p.images.length > 0
+        ? p.images.map((img) =>
+            (img.url || img).startsWith("http")
+              ? img.url || img
+              : `http://localhost:5000/${img.url || img}`
+          )
+        : ["https://via.placeholder.com/400x400?text=No+Image"];
+
+    const mainImage =
+      allImages[0] || "https://via.placeholder.com/400x400?text=No+Image";
+
+    dispatch(
+      setSelectedProduct({
+        id: p._id || p.id,
+        name: p.name,
+        brand: p.brand || "LHRIVER",
+        price: p.price,
+        oldPrice: p.oldPrice || p.oldprice || null,
+        description: p.description || "No description available.",
+        category: p.category || "Uncategorized",
+        stock: p.stock || 0,
+        rating: p.rating || 4.5,
+        reviews: p.reviews || [],
+        colors: p.colors || ["Black", "Silver"],
+        sizes: p.sizes || ["S", "M", "L"],
+        seller: p.seller || "Official LHRIVER Store",
+        details: p.details || [
+          "High-quality product",
+          "Great value for money",
+          "Customer favorite",
+        ],
+        specs: p.specs || {
+          surfaceWidth: "N/A",
+          cookingArea: "N/A",
+          burners: "N/A",
+          fuelType: "N/A",
+          btu: "N/A",
+        },
+        images: allImages,
+        mainImage,
+        quantity: 1,
+      })
+    );
+
+    navigate("/checkout");
+  };
+
+  // Slider scroll
+  const scrollLeft = () =>
     sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
-  };
-  const scrollRight = () => {
+  const scrollRight = () =>
     sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
-  };
 
   return (
     <section className="product-section">
@@ -90,7 +119,9 @@ const ProductSection = ({ products: categoryProducts }) => {
           <h2>Sauces, proteins & more</h2>
           <p>Find your favorite add-ins.</p>
         </div>
-        <Link to="/category/tech" className="view-all">View all</Link>
+        <Link to="/category/tech" className="view-all">
+          View all
+        </Link>
       </div>
 
       {/* Product Slider */}
@@ -100,32 +131,42 @@ const ProductSection = ({ products: categoryProducts }) => {
         </button>
 
         <div className="product-slider" ref={sliderRef}>
-          {data.map((p) => (
-            <div className="product-card" key={p._id || p.id}>
-              <div className="img-wrap" onClick={() => handleProductClick(p)}>
-                <img
-  src={
-    p.image ||
-    (p.images && p.images.length > 0 ? p.images[0].url : null)
-  }
-  alt={p.name || "Product"}
-  onError={(e) => {
-    e.target.src = "https://via.placeholder.com/300x300?text=No+Image";
-  }}
-/>
-                <button className="heart">♡</button>
+          {data.map((p) => {
+            const imageSrc =
+              p.image ||
+              (p.images?.length > 0
+                ? p.images[0].url || p.images[0]
+                : "https://via.placeholder.com/300x300?text=No+Image");
+
+            const finalSrc = imageSrc.startsWith("http")
+              ? imageSrc
+              : `http://localhost:5000/${imageSrc}`;
+
+            return (
+              <div className="product-card" key={p._id || p.id}>
+                <div className="img-wrap" onClick={() => handleProductClick(p)}>
+                  <img
+                    src={finalSrc}
+                    alt={p.name || "Product"}
+                    onError={(e) => {
+                      e.target.src =
+                        "https://via.placeholder.com/300x300?text=No+Image";
+                    }}
+                  />
+                  <button className="heart">♡</button>
+                </div>
+                <div className="price-line">
+                  <span className="now">Now ${p.price}</span>
+                  {p.oldprice && <span className="old">${p.oldprice}</span>}
+                </div>
+                {p.unit && <div className="unit">{p.unit}</div>}
+                <p className="name">{p.name}</p>
+                <button className="add-btn" onClick={() => handleAddToCart(p)}>
+                  + Add
+                </button>
               </div>
-              <div className="price-line">
-                <span className="now">Now ${p.price}</span>
-                {p.oldprice && <span className="old">${p.oldprice}</span>}
-              </div>
-              {p.unit && <div className="unit">{p.unit}</div>}
-              <p className="name">{p.name}</p>
-              <button className="add-btn" onClick={() => handleAddToCart(p)}>
-                + Add
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <button className="arrow right" onClick={scrollRight}>
@@ -133,7 +174,7 @@ const ProductSection = ({ products: categoryProducts }) => {
         </button>
       </div>
 
-      {/* Banner Section */}
+      {/* Right Banner */}
       <div className="product-right">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe1GKw7JXVnUBI6ZeDE1d5cAGjGqun-54qxw&s"

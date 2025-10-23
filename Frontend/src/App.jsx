@@ -17,6 +17,7 @@ import Dashboard from './Component/Admin/Dashboard'
 import CategoryManager from './Component/Admin/CategoryManager'
 import ProductManager from './Component/Admin/ProductManger'
 import OrderManager from './Component/Admin/OrderManager'
+import ProtectedRoute from './Component/ProtectedRoute'
 
 function App() {
 
@@ -34,12 +35,19 @@ function App() {
       <Route path="/signin" element={<Signin/>}/>
        <Route path='login' element={<Login/>}/>
        <Route path='Invoice' element={<Invoice/>}/>
-       <Route path='admin' element={<Admindesh/>}/>
+       <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <Admindesh />
+            </ProtectedRoute>
+          }
+        />
        <Route path="/dashboard" element={<Dashboard />} />
-                   <Route path="/banners" element={<BannerManager />} />
-                   <Route path="/categories" element={<CategoryManager />} />
-                   <Route path="/products" element={<ProductManager />} />
-                   <Route path="/orders" element={<OrderManager />} />
+       <Route path="/banners" element={<BannerManager />} />
+       <Route path="/categories" element={<CategoryManager />} />
+       <Route path="/products" element={<ProductManager />} />
+       <Route path="/orders" element={<OrderManager />} />
     </Routes>
     </>
   )

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Logo from "../../assets/logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { saveAuthData } from "../../utils/auth";
 import "./Login.css";
 
 function Login() {
@@ -8,34 +10,31 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const { data } = await axios.post("http://localhost:5000/api/auth/login", {
+      email,
+      password,
+    });
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
 
-    if (!storedUser) {
-      alert("No account found. Please sign up first.");
-      return;
-    }
-
-    if (storedUser.email === email && storedUser.password === password) {
-      alert("Login successful!");
-      navigate("/"); // home page redirect
+    if (data.user.isAdmin) {
+      navigate("/admin/dashboard");
     } else {
-      alert("Invalid email or password!");
+      navigate("/");
     }
-  };
-
+  } catch (err) {
+    alert(err.response?.data?.message || "Login failed");
+  }
+};
   return (
     <div className="signin-wrapper">
       <div className="well text-center">
-        <div>
-          <img className="w-25 top1" src={Logo} alt="Logo" />
-        </div>
-
-        <div className="top mb-5">
-          <h1 className="login">Log in</h1>
-        </div>
+        <img className="w-25 top1" src={Logo} alt="Logo" />
+        <h1 className="login">Log in</h1>
 
         <form className="form" onSubmit={handleLogin}>
           <label>Email</label>

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Logo from "../../assets/logo.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import axios from "axios";
+import { saveAuthData } from "../../utils/auth";
 import "./Sign.css";
 
 function Signin() {
@@ -13,68 +15,72 @@ function Signin() {
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
 
-  // Validation
   const validateFields = () => {
-    const newErrors = {};
+  const newErrors = {};
 
-    if (!fullName.trim() || !/^[A-Za-z]+$/.test(fullName.trim())) {
-      newErrors.fullName = "Please enter a valid name (alphabets only)";
-    }
+  //  Allow spaces in full name
+  if (!fullName.trim() || !/^[A-Za-z\s]+$/.test(fullName.trim())) {
+    newErrors.fullName = "Please enter a valid name (letters only)";
+  }
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
+  // Proper email validation (your example is valid now)
+  if (!email || !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
+    newErrors.email = "Please enter a valid email address";
+  }
 
-    if (!password) {
-      newErrors.password = "Password is required";
-    } else if (password.length < 8 || !/\d/.test(password)) {
-      newErrors.password = "Password must be at least 8 characters with a number";
-    }
+  //  Password validation (8+ chars & at least 1 number)
+  if (!password) {
+    newErrors.password = "Password is required";
+  } else if (password.length < 8 || !/\d/.test(password)) {
+    newErrors.password = "Password must be at least 8 characters long and contain a number";
+  }
 
-    return newErrors;
-  };
+  return newErrors;
+};
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
     const validationErrors = validateFields();
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      // ✅ Save user data in localStorage
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ fullName, email, password })
-      );
-      alert("Account created successfully!");
-      navigate("/login"); // redirect to login
+      try {
+        const res = await axios.post("http://localhost:5000/api/auth/register", {
+          name: fullName,
+          email,
+          password,
+        });
+
+        // Save token + user in localStorage
+        saveAuthData(res.data.token, res.data.user);
+
+        alert("Account created successfully!");
+        navigate("/login");
+      } catch (err) {
+        alert(err.response?.data?.message || "Registration failed");
+      }
     }
   };
 
   return (
     <div className="signin-wrapper">
       <div className="well text-center">
-        <div>
-          <img className="w-25 top1" src={Logo} alt="Logo" />
-        </div>
-
-        <div className="top mb-5">
-          <h1 className="login">Create Account</h1>
-        </div>
+        <img className="w-25 top1" src={Logo} alt="Logo" />
+        <h1 className="login">Create Account</h1>
 
         <form className="form" onSubmit={handleSubmit}>
-          {/* Full Name */}
           <label>Full Name</label>
           <input
             type="text"
-            placeholder="Enter text"
+            placeholder="Enter name"
             className={`input1 p-2 ${submitted && errors.fullName ? "input-error" : ""}`}
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
           {submitted && errors.fullName && <div className="error-text">{errors.fullName}</div>}
 
-          {/* Email */}
           <label>Email</label>
           <input
             type="email"
@@ -85,7 +91,6 @@ function Signin() {
           />
           {submitted && errors.email && <div className="error-text">{errors.email}</div>}
 
-          {/* Password */}
           <label>Password</label>
           <div className="password-wrapper">
             <input
@@ -101,7 +106,6 @@ function Signin() {
           </div>
           {submitted && errors.password && <div className="error-text">{errors.password}</div>}
 
-          {/* Button */}
           <button type="submit" className="black p-2 mt-4 border-0">
             <b>Sign up</b>
           </button>
