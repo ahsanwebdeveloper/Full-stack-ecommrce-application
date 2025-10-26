@@ -12,24 +12,35 @@ function Login() {
 
   const handleLogin = async (e) => {
   e.preventDefault();
+
   try {
-    const { data } = await axios.post("http://localhost:5000/api/auth/login", {
-      email,
-      password,
-    });
+    // Try admin login first
+    const adminRes = await axios.post("http://localhost:5000/api/admin/login", { email, password });
 
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
-
-    if (data.user.isAdmin) {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/");
+    if (adminRes.data?.user?.role === "admin") {
+      localStorage.setItem("token", adminRes.data.token);
+      localStorage.setItem("user", JSON.stringify(adminRes.data.user));
+      navigate("/admin");
+      return;
     }
   } catch (err) {
-    alert(err.response?.data?.message || "Login failed");
+    // Ignore admin login failure and try customer login
+  }
+
+  try {
+    const userRes = await axios.post("http://localhost:5000/api/customer/login", { email, password });
+
+    if (userRes.data?.user?.role === "customer") {
+      localStorage.setItem("token", userRes.data.token);
+      localStorage.setItem("user", JSON.stringify(userRes.data.user));
+      navigate("/");
+      return;
+    }
+  } catch (err) {
+    alert(err.response?.data?.message || "Invalid credentials");
   }
 };
+
   return (
     <div className="signin-wrapper">
       <div className="well text-center">
