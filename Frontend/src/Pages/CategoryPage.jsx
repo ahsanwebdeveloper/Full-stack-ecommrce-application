@@ -21,7 +21,7 @@ function CategoryPage() {
       try {
         setLoading(true);
 
-        //  API call to your backend
+        //  API call from backend
         const res = await axios.get(
           `http://localhost:5000/api/products/category/${category}`
         );

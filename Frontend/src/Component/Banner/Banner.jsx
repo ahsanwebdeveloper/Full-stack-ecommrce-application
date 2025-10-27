@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import "./Banner.css";
 
 const Banner = () => {
-  // Redux se selected product lo
+  // Redux se selected product 
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
 
   return (
