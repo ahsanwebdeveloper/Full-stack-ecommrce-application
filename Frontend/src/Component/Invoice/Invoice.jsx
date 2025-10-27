@@ -21,12 +21,12 @@ export default function Invoice() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // 🧮 Calculate totals (USD)
+  //  Calculate totals (USD)
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const deliveryFee = 5.0;
   const total = subtotal + deliveryFee;
 
-  // 🧩 Handle input changes
+  //  Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));

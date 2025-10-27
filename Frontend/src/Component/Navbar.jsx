@@ -1,7 +1,13 @@
 
-import { FaMapMarkerAlt, FaSearch, FaHeart, FaUser, FaShoppingCart } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaSearch,
+  FaHeart,
+  FaUser,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Logo from "../assets/logo.jpg";
 import "./Navbar.css";
@@ -22,16 +28,37 @@ function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [addressFormOpen, setAddressFormOpen] = useState(false);
 
-  // 🔹 Search states
   const [localSearch, setLocalSearch] = useState("");
   const dispatch = useDispatch();
 
-  // input change → sirf local state update
+  const [userName, setUserName] = useState(null);
+  const navigate = useNavigate();
+
+  //  Check login status on load
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUserName(parsedUser.name || parsedUser.fullName || parsedUser.username);
+      } catch {
+        console.error("Invalid user data in localStorage");
+      }
+    }
+  }, []);
+
+  
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUserName(null);
+    navigate("/");
+  };
+
   const handleChange = (e) => {
     setLocalSearch(e.target.value);
   };
 
-  // 🔹 Debounce: Redux me 500ms ke baad value save hogi
   useEffect(() => {
     const delay = setTimeout(() => {
       dispatch(setSearchText(localSearch));
@@ -47,6 +74,8 @@ function Navbar() {
           <Link to="/">
             <img src={Logo} alt="logo" className="logoimg" />
           </Link>
+
+          {/* Location Section */}
           <div className="location">
             <div className="location-trigger" onClick={() => setOpen(!open)}>
               <FaMapMarkerAlt className="icon" />
@@ -55,6 +84,7 @@ function Navbar() {
                 <p className="loc-sub">Sacramento, 95829 • Supercenter</p>
               </div>
             </div>
+
             {/* Dropdown Panel */}
             {open && (
               <div className="location-dropdown">
@@ -128,6 +158,7 @@ function Navbar() {
           </div>
         </div>
 
+        {/*  Right Side */}
         <div className="navbar-right">
           <div className="nav-item">
             <FaHeart className="icon" />
@@ -136,15 +167,32 @@ function Navbar() {
               <span>My Items</span>
             </div>
           </div>
-          <Link to="/signin">
+
+          {/*  Login / User Info */}
+          {userName ? (
             <div className="nav-item">
               <FaUser className="icon" />
               <div className="account-info">
-                <p>Sign in</p>
-                <span>Account</span>
+                <p>Welcome</p>
+                <span>{userName}</span>
               </div>
+              <button onClick={handleLogout} className="logout-btn">
+                Logout
+              </button>
             </div>
-          </Link>
+          ) : (
+            <Link to="/signin">
+              <div className="nav-item">
+                <FaUser className="icon" />
+                <div className="account-info">
+                  <p>Sign in</p>
+                  <span>Account</span>
+                </div>
+              </div>
+            </Link>
+          )}
+
+          {/* Cart */}
           <div className="nav-item cart">
             <Link to="/cart">
               <FaShoppingCart className="icon" />
@@ -157,7 +205,7 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Bottom Navbar */}
+      {/*  Bottom Navbar */}
       <div className="navbar-bottom">
         {/* Departments */}
         <div
@@ -168,7 +216,6 @@ function Navbar() {
           <button className="menu-btn">Departments ▼</button>
           {openDept && (
             <div className="dropdown-menu">
-              {/* Left Column */}
               <div className="dropdown-column scrollable">
                 <h4>All Departments</h4>
                 <ul>
@@ -191,7 +238,6 @@ function Navbar() {
                   <li>Office Supplies</li>
                 </ul>
               </div>
-              {/* Right Column */}
               <div className="dropdown-column scrollable">
                 <h4>Category</h4>
                 <ul>
@@ -224,7 +270,6 @@ function Navbar() {
           <button className="menu-btn">Services ▼</button>
           {openServices && (
             <div className="dropdown-menu">
-              {/* Left Column */}
               <div className="dropdown-column scrollable">
                 <h4>In-Store Services</h4>
                 <ul>
@@ -237,7 +282,6 @@ function Navbar() {
                   <li>Custom Cakes</li>
                 </ul>
               </div>
-              {/* Right Column */}
               <div className="dropdown-column scrollable">
                 <h4>Online & Membership</h4>
                 <ul>
@@ -258,31 +302,24 @@ function Navbar() {
         <Link to="/category/tech">
           <button className="menu-btn">Get it Fast</button>
         </Link>
-
         <Link to="/category/new-arrivals">
           <button className="menu-btn">New Arrivals</button>
         </Link>
-
         <Link to="/category/halloween">
           <button className="menu-btn">Halloween</button>
         </Link>
-
         <Link to="/pharmacy">
           <button className="menu-btn">Pharmacy</button>
         </Link>
-
         <Link to="/category/rollbacks">
           <button className="menu-btn">Rollbacks & More</button>
         </Link>
-
         <Link to="/category/baby">
           <button className="menu-btn">Baby Event</button>
         </Link>
-
         <Link to="/category/dinner">
           <button className="menu-btn">Dinner Made Easy</button>
         </Link>
-
         <Link to="/category/more">
           <button className="menu-btn">More ▼</button>
         </Link>
@@ -292,4 +329,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

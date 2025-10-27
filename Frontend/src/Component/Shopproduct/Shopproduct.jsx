@@ -26,7 +26,7 @@ const ShopProduct = ({ title }) => {
     fetchProducts();
   }, []);
 
-  // 🛒 Add to Cart
+  //  Add to Cart
   const handleAddToCart = (p) => {
     const mainImage =
       p.image ||
@@ -47,7 +47,7 @@ const ShopProduct = ({ title }) => {
     dispatch(addToCart(productData));
   };
 
-  // 👇 Full product detail when clicked
+  //  Full product detail when clicked
   const handleProductClick = (p) => {
     const allImages =
       p.images && p.images.length > 0

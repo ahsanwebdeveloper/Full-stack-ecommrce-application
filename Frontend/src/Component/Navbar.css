@@ -51,6 +51,17 @@
   justify-content: center;
   margin: 8px;
 }
+.logout-btn {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+}
+.logout-btn:hover {
+  text-decoration: underline;
+}
 
 .search {
   display: flex;
@@ -127,7 +138,6 @@
   gap: 10px;
   padding: 8px 20px;
   background: #f8f8f8;
-  
   position: relative;
   z-index: 10; 
 }
@@ -136,6 +146,7 @@
   background: white;
   border: 1px solid #ddd;
   padding: 6px 14px;
+  color: black;
   border-radius: 20px;
   font-size: 13px;
   cursor: pointer;
@@ -314,7 +325,13 @@ ul{
   }
 
   .navbar-bottom {
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-  }
+  flex-wrap: nowrap;
+  overflow-x: auto;       
+  scrollbar-width: none;  
+  -ms-overflow-style: none; 
 }
+.navbar-bottom::-webkit-scrollbar {
+  display: none;
+}
+  }
+

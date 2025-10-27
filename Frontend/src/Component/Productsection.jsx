@@ -35,7 +35,7 @@ const ProductSection = ({ products: categoryProducts }) => {
       ? categoryProducts
       : products;
 
-  // 🛒 Add to cart
+  //  Add to cart
   const handleAddToCart = (p) => {
     const mainImage =
       p.image ||
@@ -56,7 +56,7 @@ const ProductSection = ({ products: categoryProducts }) => {
     dispatch(addToCart(productData));
   };
 
-  // 🧾 Product click → full detail view
+  //  Product click  full detail view
   const handleProductClick = (p) => {
     const allImages =
       p.images && p.images.length > 0

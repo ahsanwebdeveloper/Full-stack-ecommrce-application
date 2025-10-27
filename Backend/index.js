@@ -35,18 +35,35 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/banners", bannerRoutes);
 
 // 🔹 Create Default Admin
-const defaultAdmin = await Admin.findOne({ email: "admin@gmail.com" });
-if (!defaultAdmin) {
-  const hashedPassword = await bcrypt.hash("Admin@123", 10);
-  await Admin.create({
-    name: "Admin",
-    email: "admin@gmail.com",
-    password: hashedPassword,
-    role: "admin",
-  });
-  console.log(" Default admin created");
-} else {
-  console.log("ℹ Default admin already exists");
+// Create Default Admin after DB connection
+async function createDefaultAdmin() {
+  try {
+    const defaultAdmin = await Admin.findOne({ email: "admin@gmail.com" });
+    if (!defaultAdmin) {
+      // Create admin with plain password; the Admin model has a pre-save hook
+      // that will hash the password once.
+      await Admin.create({
+        name: "Admin",
+        email: "admin@gmail.com",
+        password: "Admin@123",
+        role: "admin",
+      });
+      console.log(" Default admin created");
+    } else {
+      // If admin exists, ensure its password matches the known default.
+      // This fixes cases where the password may have been double-hashed.
+      const isMatch = await bcrypt.compare("Admin@123", defaultAdmin.password);
+      if (!isMatch) {
+        defaultAdmin.password = "Admin@123";
+        await defaultAdmin.save();
+        console.log(" Default admin password reset");
+      } else {
+        console.log("ℹ Default admin already exists");
+      }
+    }
+  } catch (err) {
+    console.error("Error creating default admin:", err.message);
+  }
 }
 
 
@@ -105,10 +122,17 @@ app.post("/api/auth/login", async (req, res) => {
 
 // 🔹 MongoDB Connect and Start Server
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
+  .connect(process.env.MONGO_URI, {
+    // Recommended options
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // Increase server selection timeout so Atlas errors are clearer before giving up
+    serverSelectionTimeoutMS: 30000,
+  })
+  .then(async () => {
     console.log(" MongoDB Connected");
-    createDefaultAdmin()
-    app.listen(5000, () => console.log(" Server running on port 5000"));
+    await createDefaultAdmin();
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
   })
   .catch((err) => console.error(" MongoDB Error:", err));

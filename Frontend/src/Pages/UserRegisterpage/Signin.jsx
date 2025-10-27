@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { saveAuthData } from "../../utils/auth";
 import "./Sign.css";
+import  { Link } from "react-router-dom";
 
 function Signin() {
   const [fullName, setFullName] = useState("");
@@ -109,6 +110,12 @@ function Signin() {
           <button type="submit" className="black p-2 mt-4 border-0">
             <b>Sign up</b>
           </button>
+          <p className="mt-3">
+            If you already have an account?{" "}
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     </div>

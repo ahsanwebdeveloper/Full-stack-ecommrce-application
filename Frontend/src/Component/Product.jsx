@@ -58,7 +58,7 @@ function HalloweenScroll() {
     navigate("/checkout");
   };
 
-  // 🔹 Scroll Controls
+  //  Scroll Controls
   const handleWheel = (e) => {
     if (scrollRef.current) {
       e.preventDefault();

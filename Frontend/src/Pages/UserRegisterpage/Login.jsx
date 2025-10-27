@@ -11,34 +11,35 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    // Try admin login first
-    const adminRes = await axios.post("http://localhost:5000/api/admin/login", { email, password });
+    try {
+      // Try admin login first if email matches admin pattern
+      if (email === "admin@gmail.com") {
+        const adminRes = await axios.post("http://localhost:5000/api/admin/login", { email, password });
+        
+        if (adminRes.data?.success && adminRes.data?.user?.role === "admin") {
+          localStorage.setItem("token", adminRes.data.token);
+          localStorage.setItem("user", JSON.stringify(adminRes.data.user));
+          navigate("/admin");
+          return;
+        }
+        // If we get here with admin email but login failed, show error and don't try customer login
+        throw new Error(adminRes.data?.message || "Invalid admin credentials");
+      }
 
-    if (adminRes.data?.user?.role === "admin") {
-      localStorage.setItem("token", adminRes.data.token);
-      localStorage.setItem("user", JSON.stringify(adminRes.data.user));
-      navigate("/admin");
-      return;
+      // Only try customer login if it's not the admin email
+      const userRes = await axios.post("http://localhost:5000/api/customer/login", { email, password });
+
+      if (userRes.data?.user?.role === "customer") {
+        localStorage.setItem("token", userRes.data.token);
+        localStorage.setItem("user", JSON.stringify(userRes.data.user));
+        navigate("/");
+        return;
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || err.message || "Invalid credentials");
     }
-  } catch (err) {
-    // Ignore admin login failure and try customer login
-  }
-
-  try {
-    const userRes = await axios.post("http://localhost:5000/api/customer/login", { email, password });
-
-    if (userRes.data?.user?.role === "customer") {
-      localStorage.setItem("token", userRes.data.token);
-      localStorage.setItem("user", JSON.stringify(userRes.data.user));
-      navigate("/");
-      return;
-    }
-  } catch (err) {
-    alert(err.response?.data?.message || "Invalid credentials");
-  }
 };
 
   return (

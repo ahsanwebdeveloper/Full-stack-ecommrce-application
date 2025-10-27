@@ -5,9 +5,10 @@ export default function ProtectedRoute({children, adminOnly = false}) {
     const token = getToken();
     const user = getUser();
     if(!token) return <Navigate to="login" replace />
-    if(adminOnly && (!user || !user.isAdmin)) {
+    // Support both shapes: backend may return { role: 'admin' } or { isAdmin: true }
+    if (adminOnly && (!user || !(user.isAdmin || user.role === "admin"))) {
         alert("Assess denied : only admin")
         return <Navigate to="/" replace />
-}
+    }
 return children;
 }

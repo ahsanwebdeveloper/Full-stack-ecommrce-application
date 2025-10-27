@@ -10,7 +10,7 @@ export default function Productcheck() {
   //  Get selected product from Redux
   const reduxProduct = useSelector((state) => state.product.selectedProduct);
 
-  //  On mount → Check Redux or localStorage
+  //  On mount  Check Redux or localStorage
   useEffect(() => {
     if (reduxProduct) {
       setProduct(reduxProduct);
@@ -23,7 +23,7 @@ export default function Productcheck() {
     }
   }, [reduxProduct]);
 
-  //  If still no product → show fallback
+  //  If still no product  show fallback
   if (!product) {
     return <p>No product selected</p>;
   }
