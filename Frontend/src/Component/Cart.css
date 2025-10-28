@@ -78,11 +78,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  
 }
 
 .cart-quantity button {
   border: 1px solid #ccc;
   background: white;
+  color: #111;
   padding: 6px 12px;
   border-radius: 50%;
   font-size: 18px;

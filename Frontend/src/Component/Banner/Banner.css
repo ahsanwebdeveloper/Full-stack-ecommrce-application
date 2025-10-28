@@ -45,6 +45,10 @@
   color: #002d72;
 }
 
+.right-image {
+  position: relative;
+}
+
 .right-image img {
   width: 150px;
   height: auto;
@@ -52,6 +56,43 @@
   border-radius: 8px;
   background: #cce5ff;
   padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.right-image img:hover {
+  transform: scale(1.05);
+}
+
+.banner-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background: #0066ff;
+}
+
+.new-arrivals-banner.loading,
+.new-arrivals-banner.error {
+  justify-content: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.new-arrivals-banner.error {
+  color: #ff3333;
 }
 
 /* -------- RESPONSIVENESS -------- */

@@ -46,10 +46,14 @@ export default function Productprice() {
         (product.images && product.images.length > 0
           ? product.images[0].url || product.images[0]
           : ""),
-      price: product.priceNow
+      price: typeof product.priceNow === 'string'
         ? parseFloat(product.priceNow.replace("$", ""))
-        : product.price
-        ? parseFloat(product.price.toString().replace("$", ""))
+        : typeof product.priceNow === 'number'
+        ? product.priceNow
+        : typeof product.price === 'string'
+        ? parseFloat(product.price.replace("$", ""))
+        : typeof product.price === 'number'
+        ? product.price
         : 0,
       quantity: 1,
     };
