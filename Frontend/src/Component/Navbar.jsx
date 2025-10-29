@@ -163,8 +163,8 @@ function Navbar() {
           <div className="nav-item">
             <FaHeart className="icon" />
             <div className="account-info">
-              <p>Reorder</p>
-              <span>My Items</span>
+              <Link to="/Userorder"><p>Reorder</p>
+              <span>My Items</span></Link>
             </div>
           </div>
 

@@ -18,6 +18,7 @@ import CategoryManager from './Component/Admin/CategoryManager'
 import ProductManager from './Component/Admin/ProductManger'
 import OrderManager from './Component/Admin/OrderManager'
 import ProtectedRoute from './Component/ProtectedRoute'
+import UserOrdersPage from './Pages/UserOrders'
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
        <Route path="/categories" element={<CategoryManager />} />
        <Route path="/products" element={<ProductManager />} />
        <Route path="/orders" element={<OrderManager />} />
+       <Route path='/Userorder' element={<UserOrdersPage/>}/>
     </Routes>
     </>
   )
