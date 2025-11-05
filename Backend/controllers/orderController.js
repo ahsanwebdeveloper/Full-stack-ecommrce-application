@@ -68,7 +68,16 @@ export const getOrderById = async (req, res) => {
 
 export const getUserOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId }).sort({ createdAt: -1 });
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ success: false, message: "User ID is required" });
+    }
+
+    // Find all orders for this user and populate their info
+    const orders = await Order.find({ userId })
+      .populate("userId", "name email")
+      .sort({ createdAt: -1 });
 
     if (!orders || orders.length === 0) {
       return res.status(404).json({ success: false, message: "No orders found for this user" });
@@ -76,10 +85,15 @@ export const getUserOrders = async (req, res) => {
 
     res.status(200).json({ success: true, count: orders.length, orders });
   } catch (error) {
-    console.error(" Error fetching user orders:", error);
-    res.status(500).json({ success: false, message: "Failed to fetch user's orders" });
+    console.error("Error fetching user orders:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch user's orders",
+      error: error.message, // helpful for debugging
+    });
   }
 };
+
 
 
 export const updateOrderStatus = async (req, res) => {

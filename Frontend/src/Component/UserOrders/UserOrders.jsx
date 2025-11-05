@@ -65,7 +65,7 @@ export default function UserOrders() {
       <h2> My Orders</h2>
 
       {!userId ? (
-        <p className="no-orders">⚠️ Please log in to view your orders.</p>
+        <p className="no-orders"> Please log in to view your orders.</p>
       ) : orders.length === 0 ? (
         <p className="no-orders">You haven’t placed any orders yet.</p>
       ) : (

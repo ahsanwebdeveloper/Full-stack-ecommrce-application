@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "Customer", required: true },
 
     userInfo: {
       name: { type: String, required: true },
@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema(
       city: { type: String, required: true },
       province: { type: String, required: true },
       area: { type: String },
-      deliveryType: { type: String, enum: ["Home", "Office"], default: "Home" },
+      deliveryType: { type: String, enum: ["Home", "Office", "home", "office"], default: "Home" },
     },
     products: [
       {
